@@ -6,9 +6,10 @@ import { join } from 'path'
 
 const token: string = process.env.TOKEN || ""
 const bot = new Telegraf(token)
+
+
 const modules = fs.readdirSync(join(__dirname, 'modules'))
 const actions = fs.readdirSync(join(__dirname, 'actions'))
-
 for(const module of modules)
 {
   const command = require(join(__dirname, 'modules', module))
@@ -24,6 +25,5 @@ for(const action of actions)
   const actionFile = require(join(__dirname, 'actions', action))
   bot.action(actionFile.name, actionFile.handler)
 }
-
 
 bot.launch()
