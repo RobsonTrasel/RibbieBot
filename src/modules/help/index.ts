@@ -1,7 +1,13 @@
-import { Context } from "telegraf"
-import { help } from '../../utils/helpList';
-export const name = 'help'
-export const desc = "Lista todos os comandos disponiveis"
+import { Context } from "telegraf";
+import { getCommands } from "../../utils/command-handler";
+
+export const name = "help"
+export const desc = "Mostra os comandos disponiveis"
 export const handler = (ctx: Context) => {
-  ctx.reply(help())
+    const commands = getCommands()
+    let message = "Os comandos abaixos são disponiveis: "
+    for(const command of commands) {
+        message += "/${command.name}: ${command.desc}\n"
+    }
+    ctx.reply(message)
 }
